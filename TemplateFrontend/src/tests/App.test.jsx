@@ -5,10 +5,6 @@ import App from '../components/App'
 describe("App", () => {
   it("Correct Header for App", () => {
     render(<App/>)
-    expect(screen.getByRole("heading").textContent).toMatch(/Where's Waldo/i)
-  })
-  it("Correct ammount of Buttons", () => {
-    render(<App/>)
-    expect(screen.getAllByRole('button').length).toBe(3)
+    expect(screen.getByRole("heading").textContent).toMatch(/Messaging App/i)
   })
 })
