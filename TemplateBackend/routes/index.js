@@ -6,4 +6,5 @@ router.get('/', function(req, res, next) {
   res.json({msg: "hello"})
 });
 
+
 module.exports = router;
