@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Form, useNavigate } from "react-router-dom"
+import Info from './info'
 function Signup () {
     const navigate = useNavigate()
     const [username, setUsername] = useState('')
@@ -15,7 +16,26 @@ function Signup () {
             <input className="h-10 row-span-2 bg-white ml-8 w-11/12 border-black border-4" id="confirm" value={confirm} onChange={e => setConfirm(e.target.value)} type="text" required/>
             <button className="text-white text-3xl self-start justify-self-center  h-20 w-40 transition duration-300 ease-in-out border-4 border-black border-solid hover:scale-125 hover:bg-black hover:text-white" onClick={async (click) => {
                 click.preventDefault()
-                navigate('/login')
+                try {
+                    const request = await fetch(Info + '/users', {
+                        mode: 'cors',
+                        method: 'POST',
+                        headers: {"Content-Type": "application/json"},
+                        body: JSON.stringify({
+                            "username": username,
+                            "password": password,
+                            "confirm": confirm
+                        })
+                    })
+                    const response = await request.json()
+                    if (response.error) {
+                        console.log(response.error)
+                    } else {
+                        navigate('/login')
+                    }
+                } catch (err) {
+                    console.log(err)
+                }
             }}>Submit</button>
         </Form>
     </div>
