@@ -68,6 +68,7 @@ exports.createUser = [
         })
         try {
             await newUser.save()
+            res.status(200).json({success: "User successfully created"})
         } catch (err) {
             res.status(500)
         }
@@ -86,7 +87,7 @@ exports.loginUser = [
     asyncHandler(async (req, res, next) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            res.json({error: errors})
+            res.json({error: errors.array()})
         } else {
             try {
                 const user = await User.findOne({username: req.body.username}).exec()
@@ -109,7 +110,7 @@ exports.deleteUser = [
     asyncHandler(async (req, res, next) => {
         try {
             await User.findByIdAndDelete(req.params.userId).exec()
-            res.json({success: "User deleted"})
+            res.status(200).json({success: "User deleted"})
         } catch (err) {
             res.status(500)
         }
