@@ -32,17 +32,17 @@ server.on('listening', onListening);
 const Message = require('../models/message')
 const jwt = require('jsonwebtoken')
 io.on('connection', (socket) => {
-  socket.on("send-message", async (chatRoom, message, token, callback) => {
-    const user = jwt.decode(token)
+  socket.on("send-message", async (chatRoom, message, name, callback) => {
     const newMessage = new Message ({
       chatRoom: chatRoom,
       message: message,
-      user: user.id,
+      user: name,
       date: new Date()
     })
     try {
       await newMessage.save()
-      socket.to(chatRoom).emit("receive-message", newMessage)
+      let allMessages = await Message.find({chatRoom: chatRoom}).sort({date: 1}).exec()
+      socket.to(chatRoom).emit("receive-message", allMessages)
     } catch {
       callback("There was an error")
     }

@@ -29,7 +29,7 @@ function ChatRoom () {
         getInfo()
     }, [])
     socket.on("receive-message", (message) => {
-        setMessages([...messages, message])
+        setMessages(message)
     })
     return <>
         <h1>{name}</h1>
@@ -40,7 +40,7 @@ function ChatRoom () {
             <input value={newMessage} onChange={e => {setNewMessage(e.target.value)}} className='' type="text" required/>
             <button onClick={click => {
                 click.preventDefault()
-                socket.emit("send-message", params.chatRoomId, newMessage, localStorage.getItem('token'), res => {
+                socket.emit("send-message", params.chatRoomId, newMessage, localStorage.getItem('name'), res => {
                     console.log(res)
                 })
                 setMessages([...messages, {user: localStorage.getItem('name'), message: newMessage}])
