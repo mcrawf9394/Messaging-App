@@ -10,7 +10,7 @@ router.post('/users/login', userController.loginUser)
 router.delete('/users/:userId', userController.deleteUser)
 // Chat Room routes
 router.get('/chatrooms', chatRoomController.getAllChatRooms)
-router.get('/chatrooms/:chatRoomId', chatRoomController.getSingleChatRoom)
 router.post('/chatrooms', chatRoomController.addChatRoom)
+router.get('/chatrooms/:chatRoomId', chatRoomController.getSingleChatRoom)
 router.delete('/chatrooms/:chatRoomId', chatRoomController.deleteChatRoom)
 module.exports = router

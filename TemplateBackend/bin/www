@@ -5,9 +5,8 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('whereswaldobackend:server');
+var debug = require('debug')('TemplateBackend:server');
 var http = require('http');
-
 /**
  * Get port from environment and store in Express.
  */
@@ -30,10 +29,26 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
+const Message = require('../models/message')
+const jwt = require('jsonwebtoken')
 io.on('connection', (socket) => {
-  console.log(socket.id)
-  socket.on("send-message", message => {
-    console.log(message)
+  socket.on("send-message", async (chatRoom, message, token, callback) => {
+    const user = jwt.decode(token)
+    const newMessage = new Message ({
+      chatRoom: chatRoom,
+      message: message,
+      user: user.id,
+      date: new Date()
+    })
+    try {
+      await newMessage.save()
+      socket.to(chatRoom).emit("receive-message", newMessage)
+    } catch {
+      callback("There was an error")
+    }
+  })
+  socket.on('join-chat-room', (chatRoom, callback) => {
+    socket.join(chatRoom)
   })
 })
 /**

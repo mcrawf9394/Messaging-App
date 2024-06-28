@@ -40,7 +40,7 @@ exports.createUser = [
                     throw new Error("User Already exists");
                 }
             } catch (err) {
-                res.status(500)
+                console.log(err)
             }
         })
         .escape(),

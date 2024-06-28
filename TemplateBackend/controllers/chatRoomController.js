@@ -27,40 +27,43 @@ exports.getAllChatRooms = [
 exports.getSingleChatRoom = [
     passport.authenticate('jwt', {session: false}),
     asyncHandler(async (req, res, next) => {
+        let token = req.headers.authorization.split(' ')[1]
+        let currentUser = jwt.decode(token)
         try {   
             const chatRoom = await ChatRoom.findById(req.params.chatRoomId).exec()
-            const allMessages = await Messages.find().filter({chatRoom: req.params.chatRoomId}).sort({date: 1}).exec()
-            let token = req.headers.authorization.split('')[1]
-            let currentUser = jwt.decode(token)
-            if (chatRoom.users.findIndex(currentUser.id) === -1) {
+            let allMessages = await Messages.find({chatRoom: req.params.chatRoomId}).sort({date: 1}).exec()
+            if (chatRoom.users.indexOf(currentUser.id) === -1) {
                 await ChatRoom.findByIdAndUpdate(chatRoom._id, {$push: {users: currentUser.id}})
             }
-            res.json({chatRoom: chatRoom.name, messages: allMessages})
-        } catch {
+            res.status(200).json({chatRoom: chatRoom.name, messages: allMessages})
+        } catch (err) {
             res.status(500)
         }
     })
 ]
 exports.addChatRoom = [
     passport.authenticate('jwt', {session: false}),
-    body("title"),
+    body("title")
+        .trim()
+        .isLength({min: 1, max: 20})
+        .escape(),
     asyncHandler(async (req, res, next) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
             res.json({error: errors.array()})
         } else {
-            let token = req.headers.authorization.split('')[1]
+            let token = req.headers.authorization.split(' ')[1]
             let currentUser = jwt.decode(token)
+            const newChatRoom = new ChatRoom({
+                users: [currentUser.id],
+                name: req.body.title,
+                messages: []
+            })
             try {
-                const newChatRoom = new ChatRoom({
-                    users: [currentUser.id],
-                    name: req.body.title,
-                    messages: []
-                })
                 await newChatRoom.save()
-                await User.findByIdAndUpdate(currentUser.id, {$push: { chatRooms: newChatRoom._id}})
-                res.status(200)
-            } catch {
+                await User.findByIdAndUpdate(currentUser.id, {$push: { chatRooms: newChatRoom._id}}).exec()
+                res.status(200).json({id: newChatRoom._id})
+            } catch  {
                 res.status(500)
             }
         }
@@ -86,7 +89,7 @@ exports.deleteChatRoom = [
                 await ChatRoom.findByIdAndDelete(req.params.chatRoomId)
             }
             res.status(200)
-        } catch {
+        } catch (err) {
             res.status(500)
         }
     })
