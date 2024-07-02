@@ -17,7 +17,7 @@ function App() {
           }}>Create Account</button>
         </div>
       </div>
-      <footer className='sticky bottom-0 text-center text-white text-lg'>Sam Crawford</footer>
+      <footer className='sticky bottom-0 text-center text-white text-lg'>Created by Sam Crawford - <a target="_blank" href="https://icons8.com/icon/jOjH1Mt48Fp1/chat-message">Message</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a></footer>
     </div>
 }
 

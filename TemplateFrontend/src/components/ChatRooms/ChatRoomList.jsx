@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from 'react-router-dom'
 import Info from '../info'
+import {v4 as uuidV4} from 'uuid'
 function ChatRoomList () {
     const navigate = useNavigate()
-    const [chatRooms, setChatRooms] = useState([])
+    const [chatRooms, setChatRooms] = useState([{name: "chatroom1", id: '1'}, {name: "chatroom2", id: '2'}, {name: "chatroom3", id: '3'}])
     useEffect(() => {
         const getInfo = async () => {
             try {
@@ -35,15 +36,15 @@ function ChatRoomList () {
         }
         getInfo()
     }, [])
-    return <>
+    return <div className="w-10/12 mx-auto overflow-scroll grid grid-cols-1 gap-2">
         {chatRooms.map(option => {
-            return <button onClick={ click => {
+            return <button key={uuidV4()} className="w-full h-40 bg-gray-400 hover:bg-gray-200" onClick={ click => {
                 click.preventDefault()
                 navigate(`/chatrooms/${option.id}`)
             }}>
                 {option.name}
             </button>
         })}
-    </>
+    </div>
 }
 export default ChatRoomList
