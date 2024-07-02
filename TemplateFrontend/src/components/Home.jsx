@@ -45,7 +45,7 @@ function Home () {
     } else {
         return <div className="bg-blue-600 h-screen">
             <nav className="bg-blue-400 grid grid-cols-2">
-                <h1 className="text-4xl self-center">Hello {localStorage.getItem('name')}!</h1>
+                <h1 className="text-xl sm:text-4xl self-center">Hello {localStorage.getItem('name')}!</h1>
                 <button className="my-8 transition ease-in-out delay-150 hover:text-white justify-self-end" onClick={click => {
                     click.preventDefault()
                     if (clicked === false) {
@@ -58,7 +58,7 @@ function Home () {
             <Element clicked={clicked} chatRooms={chatRooms}/>
             <div className="w-10/12 mx-auto mt-20">
                 <h2 className="text-center">This is some Information that I should type out later</h2>
-                <button className="border-4 border-solid border-black my-8 h-20 w-52 float-left ml-12 transition ease-in-out hover:scale-110 hover:text-white hover:bg-black" onClick={click => {
+                <button className="w-full border-4 border-solid border-black my-8 h-20 sm:w-52 sm:float-left sm:ml-12 transition ease-in-out hover:scale-110 hover:text-white hover:bg-black" onClick={click => {
                     click.preventDefault()
                     if (otherClick === true) {
                         setOtherClick(false)
@@ -66,7 +66,7 @@ function Home () {
                         setOtherClick(true)
                     }
                 }}>Create Chat Room</button>
-                <button className="border-4 border-solid border-black my-8 h-20 w-52 float-right mr-12 transition ease-in-out hover:scale-110 hover:text-white hover:bg-black" onClick={click => {
+                <button className="w-full border-4 border-solid border-black my-8 h-20 sm:w-52 sm:float-right sm:mr-12 transition ease-in-out hover:scale-110 hover:text-white hover:bg-black" onClick={click => {
                     click.preventDefault()
                     navigate('/chatrooms')
                 }}>Join Existing Chat Rooms</button>
