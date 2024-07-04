@@ -28,7 +28,7 @@ function ChatRoomForm (props) {
                         if (response.error) {
                             console.log(response.error)
                         } else {
-                            navigate(`/chatroom/${response.id}`)
+                            navigate(`/chatrooms/${response.id}`)
                         }
                     } catch {
                         console.log("there was an error reaching the server")

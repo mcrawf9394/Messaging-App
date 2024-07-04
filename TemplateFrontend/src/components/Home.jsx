@@ -11,7 +11,7 @@ function Home () {
     useEffect(()=>{
         const getInfo = async () => {
             try {
-                const request = await fetch(Info + '/chatrooms', {
+                const request = await fetch(Info + '/userchatrooms', {
                     mode: 'cors',
                     method: 'GET',
                     headers: {"Content-Type": "application/json", "Authorization": `Bearer ${localStorage.getItem('token')}`}
@@ -30,6 +30,7 @@ function Home () {
                     for (let i = 0; i < response.names.length; i++) {
                         arr.push(createObj(response.names[i], response.ids[i]))
                     }
+                    console.log(arr)
                     setChatRooms(arr)
                 }
             } catch (err) {

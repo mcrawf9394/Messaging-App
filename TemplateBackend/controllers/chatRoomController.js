@@ -7,6 +7,27 @@ const ChatRoom = require('../models/chatRoom')
 const Messages = require('../models/message')
 
 require('dotenv').config()
+exports.getUsersChatRoom = [
+    passport.authenticate('jwt', {session: false}),
+    asyncHandler(async (req, res, next) => {
+        let token = req.headers.authorization.split(' ')[1]
+        let currentUser = jwt.decode(token)
+        try {
+            const ChatRooms = await ChatRoom.find().sort({_id: 1}).exec()
+            const ChatRoomNames = []
+            const ChatRoomIds = []
+            for (i = 0; i < ChatRooms; i++) {
+                if (ChatRooms[i].users.indexOf(currentUser.id) != -1) {
+                    ChatRoomNames.push(ChatRooms[i].name)
+                    ChatRoomIds.push(ChatRooms[i]._id)
+                }
+            }
+            res.status(200).json({names: ChatRoomNames, ids: ChatRoomIds})
+        } catch {
+            res.status(500)
+        }
+    })
+]
 exports.getAllChatRooms = [
     passport.authenticate('jwt', {session: false}),
     asyncHandler(async (req, res, next) => {

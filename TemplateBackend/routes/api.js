@@ -9,6 +9,7 @@ router.post('/users', userController.createUser)
 router.post('/users/login', userController.loginUser)
 router.delete('/users/:userId', userController.deleteUser)
 // Chat Room routes
+router.get('/userchatrooms', chatRoomController.getUsersChatRoom)
 router.get('/chatrooms', chatRoomController.getAllChatRooms)
 router.post('/chatrooms', chatRoomController.addChatRoom)
 router.get('/chatrooms/:chatRoomId', chatRoomController.getSingleChatRoom)
