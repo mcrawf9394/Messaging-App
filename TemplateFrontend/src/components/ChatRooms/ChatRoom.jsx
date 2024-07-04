@@ -33,7 +33,7 @@ function ChatRoom () {
     socket.on("receive-message", (message) => {
         setMessages(message)
     })
-    return <div className='w-8/12 mx-auto bg-blue-400 h-screen'>
+    return <div className='w-11/12 sm:w-8/12 mx-auto bg-blue-400 h-screen'>
         <h1 className='text-white text-4xl text-center mb-2 pb-3 border-b-4 border-black border-solid'>{name}</h1>
         <div className='overflow-scroll h-4/5 w-11/12 mx-auto grid grid-cols-1 gap-y-3'>
             {messages.map(val => {
@@ -44,13 +44,13 @@ function ChatRoom () {
                 }
             })}
         </div>
-        <Form className='absolute bottom-0 w-8/12 my-2 inline-flex justify-around items-center'>
-            <button className='h-8 my-8 transition ease-in-out delay-150 border-4 border-solid border-black hover:text-white hover:bg-black w-1/12 rounded-lg' onClick={click => {
+        <Form className='absolute bottom-0 w-11/12 sm:w-8/12 my-2 inline-flex justify-around items-center'>
+            <button className='sm:h-8 my-8 transition ease-in-out delay-150 border-4 border-solid border-black hover:text-white hover:bg-black sm:w-1/12 rounded-lg' onClick={click => {
                 click.preventDefault()
                 navigate('/home')
-            }}>Go Back</button>
+            }}>Home</button>
             <input id='newmessage' value={newMessage} onChange={e => {setNewMessage(e.target.value)}} className='mx-5 h-8 w-8/12' type="text" required/>
-            <button className='h-8 my-8 transition ease-in-out delay-150 border-4 border-solid border-black hover:text-white hover:bg-black w-1/12 rounded-lg' onClick={click => {
+            <button className='sm:h-8 my-8 transition ease-in-out delay-150 border-4 border-solid border-black hover:text-white hover:bg-black sm:w-1/12 rounded-lg' onClick={click => {
                 click.preventDefault()
                 socket.emit("send-message", params.chatRoomId, newMessage, localStorage.getItem('name'), res => {
                     console.log(res)

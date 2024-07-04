@@ -10,10 +10,10 @@ function ChatRoomForm (props) {
         </>
     } else {
         return <>
-            <Form className="mt-40">
+            <Form className="sm:mt-40">
                 <label htmlFor="title" className="mr-4">Name of Chat Room</label>
                 <input className="mr-4" id="title" value={title} onChange={e => setTitle(e.target.value)} type="text" required/>
-                <button className="h-8 my-8 transition ease-in-out delay-150 border-4 border-solid border-black hover:text-white hover:bg-black w-1/12 rounded-lg" onClick={async (click) => {
+                <button className="h-8 my-8 transition ease-in-out delay-150 border-4 border-solid border-black hover:text-white hover:bg-black sm:w-1/12 rounded-lg" onClick={async (click) => {
                     click.preventDefault()
                     try {
                         const request = await fetch(Info + '/chatrooms', {
