@@ -2,8 +2,10 @@ var express = require('express')
 var router = express.Router()
 const userController = require('../controllers/userController')
 const chatRoomController = require('../controllers/chatRoomController')
+
 // User routes
 router.get('/users', userController.getAllUsers)
+router.get('/users/check', userController.auth)
 router.get('/users/:userId', userController.getSingleUser)
 router.post('/users', userController.createUser)
 router.post('/users/login', userController.loginUser)

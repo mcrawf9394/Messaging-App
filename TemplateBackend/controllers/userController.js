@@ -5,6 +5,12 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 require('dotenv').config()
+exports.auth = [
+    passport.authenticate('jwt', {session: false}),
+    (req, res) => {
+        res.status(200).json({msg: 'Authorized'})
+     }
+]
 exports.getAllUsers = asyncHandler(async (req, res, next) => {
     try {   
         const Users = await User.find().sort({_id: 1}).exec()

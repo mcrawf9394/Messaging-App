@@ -13,14 +13,12 @@ exports.getUsersChatRoom = [
         let token = req.headers.authorization.split(' ')[1]
         let currentUser = jwt.decode(token)
         try {
-            const ChatRooms = await ChatRoom.find().sort({_id: 1}).exec()
+            const ChatRooms = await ChatRoom.find({users: currentUser.id}).sort({_id: 1}).exec()
             const ChatRoomNames = []
             const ChatRoomIds = []
-            for (i = 0; i < ChatRooms; i++) {
-                if (ChatRooms[i].users.indexOf(currentUser.id) != -1) {
-                    ChatRoomNames.push(ChatRooms[i].name)
-                    ChatRoomIds.push(ChatRooms[i]._id)
-                }
+            for (i = 0; i < ChatRooms.length; i++) {
+                ChatRoomNames.push(ChatRooms[i].name)
+                ChatRoomIds.push(ChatRooms[i]._id)
             }
             res.status(200).json({names: ChatRoomNames, ids: ChatRoomIds})
         } catch {

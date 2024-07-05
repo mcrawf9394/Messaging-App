@@ -7,6 +7,7 @@ import Signup from './components/UserHandling/Signup.jsx'
 import Home from './components/Home.jsx'
 import ChatRoomList from './components/ChatRooms/ChatRoomList.jsx'
 import ChatRoom from './components/ChatRooms/ChatRoom.jsx'
+import RouteError from './components/RouteError.jsx'
 import './stylesheet/index.css'
 
 const Router = createBrowserRouter([
@@ -33,6 +34,10 @@ const Router = createBrowserRouter([
   {
     path: '/chatrooms/:chatRoomId',
     element: <ChatRoom />
+  }, 
+  {
+    path: ':userInput',
+    element: <RouteError />
   }
 ])
 

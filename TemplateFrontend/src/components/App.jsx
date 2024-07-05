@@ -1,6 +1,25 @@
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import Info from './info.js'
 function App() {
   const navigate = useNavigate()
+  useEffect(() => {
+    const isAuth = async () => {
+      try {
+        const request = await fetch(Info + '/users/check', {
+          mode: 'cors',
+          method: 'GET',
+          headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}
+        })
+        if (request.status === 200) {
+          navigate('/home')
+        }
+      } catch {
+        console.log("There is a server error")
+      }
+    }
+    isAuth()
+  }, [])
   return <div className='h-screen bg-blue-400'>
       <h1 className='sm:h-20 sticky top-0 text-center text-xl bg-blue-600 text-white mb-10 sm:mb-0 sm:text-6xl'>Messaging App</h1>
       <div className='w-10/12 h-4/5 mx-auto bg-white mt-2 sm:mt-5 rounded-lg'>

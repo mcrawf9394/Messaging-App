@@ -16,6 +16,10 @@ function Home () {
                     method: 'GET',
                     headers: {"Content-Type": "application/json", "Authorization": `Bearer ${localStorage.getItem('token')}`}
                 })
+                if (request.status === 401) {
+                    localStorage.clear()
+                    navigate('/')
+                }
                 const response = await request.json()
                 if (response.error) {
                     console.log(response.error)
@@ -58,7 +62,7 @@ function Home () {
             </nav>
             <Element clicked={clicked} chatRooms={chatRooms}/>
             <div className="w-10/12 mx-auto mt-20">
-                <h2 className="text-center">This is some Information that I should type out later</h2>
+                <h2 className="text-center">Please sign up to use the service and access chat rooms.</h2>
                 <button className="w-full border-4 border-solid border-black my-8 h-20 sm:w-52 sm:float-left sm:ml-12 transition ease-in-out hover:scale-110 hover:text-white hover:bg-black" onClick={click => {
                     click.preventDefault()
                     if (otherClick === true) {
