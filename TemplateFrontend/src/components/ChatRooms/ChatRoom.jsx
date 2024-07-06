@@ -11,9 +11,9 @@ function ChatRoom () {
     const [messages, setMessages] = useState([])
     const [newMessage, setNewMessage] = useState('')
     useEffect(() => {
-        socket.emit("join-chat-room", params.chatRoomId, res => {
-            console.log(res)
-        })
+        // socket.emit("join-chat-room", params.chatRoomId, res => {
+        //     console.log(res)
+        // })
         const getInfo = async () => {
             try {
                 const request = await fetch(Info +`/chatrooms/${params.chatRoomId}`, {
