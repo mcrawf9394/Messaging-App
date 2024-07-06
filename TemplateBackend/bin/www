@@ -19,11 +19,11 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
-const io = require('socket.io')(server, { cors: {
-  origin: ['https://messaging-app-mcrawf9394.netlify.app'], 
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type']
-}})
+// const io = require('socket.io')(server, { cors: {
+//   origin: ['https://messaging-app-mcrawf9394.netlify.app'], 
+//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//   allowedHeaders: ['Content-Type']
+// }})
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -33,28 +33,28 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-const Message = require('../models/message')
-const jwt = require('jsonwebtoken')
-io.on('connection', (socket) => {
-  socket.on("send-message", async (chatRoom, message, name, callback) => {
-    const newMessage = new Message ({
-      chatRoom: chatRoom,
-      message: message,
-      user: name,
-      date: new Date()
-    })
-    try {
-      await newMessage.save()
-      let allMessages = await Message.find({chatRoom: chatRoom}).sort({date: 1}).exec()
-      socket.to(chatRoom).emit("receive-message", allMessages)
-    } catch {
-      callback("There was an error")
-    }
-  })
-  socket.on('join-chat-room', (chatRoom, callback) => {
-    socket.join(chatRoom)
-  })
-})
+// const Message = require('../models/message')
+// const jwt = require('jsonwebtoken')
+// io.on('connection', (socket) => {
+//   socket.on("send-message", async (chatRoom, message, name, callback) => {
+//     const newMessage = new Message ({
+//       chatRoom: chatRoom,
+//       message: message,
+//       user: name,
+//       date: new Date()
+//     })
+//     try {
+//       await newMessage.save()
+//       let allMessages = await Message.find({chatRoom: chatRoom}).sort({date: 1}).exec()
+//       socket.to(chatRoom).emit("receive-message", allMessages)
+//     } catch {
+//       callback("There was an error")
+//     }
+//   })
+//   socket.on('join-chat-room', (chatRoom, callback) => {
+//     socket.join(chatRoom)
+//   })
+// })
 /**
  * Normalize a port into a number, string, or false.
  */

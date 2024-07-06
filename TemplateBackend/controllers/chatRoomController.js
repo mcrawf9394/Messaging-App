@@ -7,6 +7,20 @@ const ChatRoom = require('../models/chatRoom')
 const Messages = require('../models/message')
 
 require('dotenv').config()
+exports.addNewMessage = asyncHandler(async (req, res, next) => {
+    const newMessage = new Messages ({
+            chatRoom: req.body.chatRoom,
+            message: req.body.message,
+            user: req.body.name,
+            date: new Date()
+        })
+    try {
+        await newMessage.save()
+        res.status(200).json({msg: 'added successfully'})
+    } catch {
+        res.status(500)
+    }
+})
 exports.getUsersChatRoom = [
     passport.authenticate('jwt', {session: false}),
     asyncHandler(async (req, res, next) => {

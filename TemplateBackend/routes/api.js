@@ -16,4 +16,5 @@ router.get('/chatrooms', chatRoomController.getAllChatRooms)
 router.post('/chatrooms', chatRoomController.addChatRoom)
 router.get('/chatrooms/:chatRoomId', chatRoomController.getSingleChatRoom)
 router.delete('/chatrooms/:chatRoomId', chatRoomController.deleteChatRoom)
+router.post('/addmessage', chatRoomController.addNewMessage)
 module.exports = router
