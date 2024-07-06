@@ -6,9 +6,7 @@ import { v4 as uuidV4} from 'uuid'
 function ChatRoom () {
     const navigate = useNavigate()
     const params = useParams()
-    const socket = io('https://messaging-app-api.adaptable.app', {
-        withCredentials: true
-    })
+    const socket = io('https://messaging-app-api.adaptable.app')
     const [name, setName] = useState("loading")
     const [messages, setMessages] = useState([])
     const [newMessage, setNewMessage] = useState('')
