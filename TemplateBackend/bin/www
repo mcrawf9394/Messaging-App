@@ -19,7 +19,11 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
-const io = require('socket.io')(server, { cors: {origin: ['https://messaging-app-mcrawf9394.netlify.app'], methods: ['GET', 'POST', 'PUT', 'DELETE']}})
+const io = require('socket.io')(server, { cors: {
+  origin: ['https://messaging-app-mcrawf9394.netlify.app'], 
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type']
+}})
 
 /**
  * Listen on provided port, on all network interfaces.
