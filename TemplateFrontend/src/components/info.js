@@ -1,2 +1,2 @@
-const url = 'http://localhost:3000/api'
+const url = 'https://messaging-app-api.adaptable.app/api'
 export default url
