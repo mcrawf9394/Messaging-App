@@ -25,7 +25,7 @@ require('dotenv').config()
 require('./config/passport')
 app.use(passport.initialize())
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://messaging-app-mcrawf9394.netlify.app/')
+  res.header('Access-Control-Allow-Origin', 'https://messaging-app-mcrawf9394.netlify.app')
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT,DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Authorization, Authentication");
